@@ -553,7 +553,7 @@ function WazureV1:Start(GuiConfig)
     UICorner.Parent = ConfirmFrame
 
     -- Tiêu đề căn giữa thật
-    Title.Text = "Are you sure you want\nto delete this UI?"
+    Title.Text = "Are you sure?"
     Title.Font = Enum.Font.GothamBold
     Title.TextColor3 = Color3.fromRGB(255, 255, 255)
     Title.TextSize = 14
