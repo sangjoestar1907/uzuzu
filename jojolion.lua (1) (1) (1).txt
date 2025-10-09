@@ -525,90 +525,91 @@ function WazureV1:Start(GuiConfig)
     local TweenService = game:GetService("TweenService")
     local Lighting = game:GetService("Lighting")
 
-    -- Tạo hiệu ứng mờ nền
+    -- Làm mờ nền
     local Blur = Instance.new("BlurEffect")
     Blur.Size = 18
-    Blur.Name = "UIConfirmBlur"
-    Blur.Parent = Lighting
+    pcall(function() Blur.Parent = Lighting end)
 
-    -- Tạo khung xác nhận
+    -- Popup nhỏ gọn
     local ConfirmFrame = Instance.new("Frame")
     local UICorner = Instance.new("UICorner")
+    local UIStroke = Instance.new("UIStroke")
     local Title = Instance.new("TextLabel")
     local YesButton = Instance.new("TextButton")
     local NoButton = Instance.new("TextButton")
-    local UIStroke = Instance.new("UIStroke")
 
     ConfirmFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     ConfirmFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
     ConfirmFrame.Size = UDim2.new(0, 220, 0, 110)
     ConfirmFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    ConfirmFrame.Parent = AzuGui
     ConfirmFrame.ZIndex = 1000
-    ConfirmFrame.ClipsDescendants = true
+    ConfirmFrame.Parent = AzuGui
 
-    UIStroke.Color = Color3.fromRGB(60, 60, 60)
-    UIStroke.Thickness = 1
+    UIStroke.Color = Color3.fromRGB(80, 80, 80)
+    UIStroke.Thickness = 1.2
     UIStroke.Parent = ConfirmFrame
 
-    UICorner.CornerRadius = UDim.new(0, 8)
+    UICorner.CornerRadius = UDim.new(0, 10)
     UICorner.Parent = ConfirmFrame
 
-    Title.Text = "Are you sure you want to delete this UI?"
+    -- Tiêu đề nhỏ gọn, căn giữa
+    Title.Text = "Are you sure you want\nto delete this UI?"
     Title.Font = Enum.Font.GothamBold
     Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.TextSize = 15
+    Title.TextSize = 14
     Title.TextWrapped = true
+    Title.TextYAlignment = Enum.TextYAlignment.Center
     Title.BackgroundTransparency = 1
-    Title.Size = UDim2.new(1, -30, 0, 60)
-    Title.Position = UDim2.new(0, 15, 0, 15)
+    Title.Size = UDim2.new(1, -20, 1, -60)
+    Title.Position = UDim2.new(0, 10, 0, 0)
     Title.Parent = ConfirmFrame
 
-    -- Yes (đen sang trọng)
+    -- Nút Yes
     YesButton.Text = "Yes"
     YesButton.Font = Enum.Font.GothamBold
     YesButton.TextSize = 14
     YesButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     YesButton.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
-    YesButton.Size = UDim2.new(0, 100, 0, 36)
-    YesButton.Position = UDim2.new(0, 25, 1, -55)
+    YesButton.Size = UDim2.new(0, 80, 0, 28)
+    YesButton.Position = UDim2.new(0, 20, 1, -40)
     YesButton.Parent = ConfirmFrame
 
-    -- No (xám tối)
+    -- Nút No
     NoButton.Text = "No"
     NoButton.Font = Enum.Font.GothamBold
     NoButton.TextSize = 14
     NoButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     NoButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-    NoButton.Size = UDim2.new(0, 100, 0, 36)
-    NoButton.Position = UDim2.new(1, -125, 1, -55)
+    NoButton.Size = UDim2.new(0, 80, 0, 28)
+    NoButton.Position = UDim2.new(1, -100, 1, -40)
     NoButton.Parent = ConfirmFrame
 
     Instance.new("UICorner", YesButton).CornerRadius = UDim.new(0, 6)
     Instance.new("UICorner", NoButton).CornerRadius = UDim.new(0, 6)
 
-    -- Hiệu ứng hover mượt
-    local function Hover(button, hoverColor, defaultColor)
-        button.MouseEnter:Connect(function()
-            TweenService:Create(button, TweenInfo.new(0.15), {BackgroundColor3 = hoverColor}):Play()
+    -- Hover nhẹ
+    local function Hover(btn, hover, normal)
+        btn.MouseEnter:Connect(function()
+            TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = hover}):Play()
         end)
-        button.MouseLeave:Connect(function()
-            TweenService:Create(button, TweenInfo.new(0.15), {BackgroundColor3 = defaultColor}):Play()
+        btn.MouseLeave:Connect(function()
+            TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = normal}):Play()
         end)
     end
-    Hover(YesButton, Color3.fromRGB(35, 35, 35), Color3.fromRGB(21, 21, 21))
-    Hover(NoButton, Color3.fromRGB(90, 90, 90), Color3.fromRGB(70, 70, 70))
+    Hover(YesButton, Color3.fromRGB(35,35,35), Color3.fromRGB(21,21,21))
+    Hover(NoButton, Color3.fromRGB(90,90,90), Color3.fromRGB(70,70,70))
 
-    -- Bấm Yes → xoá ngay
-    YesButton.MouseButton1Click:Connect(function()
-        Blur:Destroy()
+    -- Nút Yes / No
+    YesButton.Activated:Connect(function()
+        pcall(function() Blur:Destroy() end)
         AzuGui:Destroy()
-        GuiConfig.CloseCallBack()
+        if GuiConfig and GuiConfig.CloseCallBack then
+            GuiConfig.CloseCallBack()
+        end
     end)
 
-    -- Bấm No → tắt popup
-    NoButton.MouseButton1Click:Connect(function()
-        Blur:Destroy()
+    NoButton.Activated:Connect(function()
+        pcall(function() Blur:Destroy() end)
         ConfirmFrame:Destroy()
     end)
 end)
