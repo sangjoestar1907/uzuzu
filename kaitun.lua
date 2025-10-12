@@ -29,7 +29,7 @@ getgenv().Key = "f74d5aa69115bd072e705a90"
             ["Cursed Dual Katana"] = true,
             ["Upgrade Race V2-V3"] = false,
             ["Auto Pull Lever"] = true,
-            ["Shark Anchor"] = false, --- if have cdk,sg,godhuman
+            ["Shark Anchor"] = true, --- if have cdk,sg,godhuman
         },
         ["Get Rare Items"] = {
             ["Rengoku"] = false,
