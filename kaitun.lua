@@ -27,9 +27,9 @@ getgenv().Key = "f74d5aa69115bd072e705a90"
             ["Skull Guitar"] = true,
             ["Mirror Fractal"] = true,
             ["Cursed Dual Katana"] = true,
-            ["Upgrade Race V2-V3"] = true,
+            ["Upgrade Race V2-V3"] = false,
             ["Auto Pull Lever"] = true,
-            ["Shark Anchor"] = true, --- if have cdk,sg,godhuman
+            ["Shark Anchor"] = false, --- if have cdk,sg,godhuman
         },
         ["Get Rare Items"] = {
             ["Rengoku"] = false,
@@ -54,14 +54,14 @@ getgenv().Key = "f74d5aa69115bd072e705a90"
             ["Hop Find Cake Queen [CDK]"] = true,
             ["Hop Find Soul Reaper [CDK]"] = true,
             ["Hop Find Darkbeard [SG]"] = true,
-            ["Hop Find Mirage [ Pull Lever ]"] = false,
+            ["Hop Find Mirage [ Pull Lever ]"] = true,
         },
         ["Farm Mastery"] = {
             ["Melee"] = false,
             ["Sword"] = false,
         },
         ["Buy Haki"] = {
-            ["Enhancement"] = false,
+            ["Enhancement"] = true,
             ["Skyjump"] = true,
             ["Flash Step"] = true,
             ["Observation"] = true,
