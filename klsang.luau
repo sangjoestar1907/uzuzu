@@ -560,7 +560,7 @@ function WazureV1:Start(GuiConfig)
     UICorner.CornerRadius = UDim.new(0, 8)
     UICorner.Parent = ConfirmFrame
 
-    Title.Text = "Are you sure you want to delete this UI?"
+    Title.Text = "Are you sure?"
     Title.Font = Enum.Font.GothamBold
     Title.TextColor3 = Color3.fromRGB(255, 255, 255)
     Title.TextSize = 15
@@ -2597,3 +2597,4 @@ end)
 	return Tabs
 end
 return WazureV1
+
